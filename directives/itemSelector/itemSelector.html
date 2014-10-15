@@ -1,0 +1,71 @@
+<link href="/directivesProject/directives/itemSelector/css/itemselector_container.css" rel="stylesheet" />
+<link href="/directivesProject/directives/itemSelector/css/kendo-ui-li.css" rel="stylesheet" />
+
+
+<div class="container-fluid container-xs-height unselectable">
+    <div class="row row-xs-height">
+        <div class="col-xs-3 col-xs-height">
+            <div class="col-xs-top">
+            <input type="text" ng-model="selectableSearchText"  kendo-auto-complete style="width:100%;" >
+            </div>
+            <ol  id="sortable-left"  class="playlist">
+                <li ng-init="isColorSelectableArr.push(false);"
+                    ng-repeat="item in selectableItems|filter:getCurrentFilter()|orderBy:selectableOrderby"
+                    ng-class="{'orange':isColorSelectableArr[$index]}"
+                    ng-click="toggleSelection(selectableItems,selectableMoveItems,isColorSelectableArr,item,$event,$index)"
+                    ng-dblclick="move(selectableItems, selectedItems, selectableMoveItems,isColorSelectableArr,false);"
+                    >
+                    <div ng-transclude inject></div>
+                </li>
+            </ol>
+
+            <button class="btn btn-warning" style="float:left;" ng-click="cancelClick();">Cancel</button>
+
+        </div>
+        <div class="col-xs-1 col-xs-height">
+
+                <div>
+                    <button type="button" class="btn btn-inverse btn-lg"
+                            style="margin-bottom: 5px"
+                            ng-click="move(selectableItems, selectedItems, selectableMoveItems,isColorSelectableArr,false);">
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-inverse btn-lg"
+                            style="margin-bottom: 5px"
+                            ng-click="move(selectableItems, selectedItems, selectableMoveItems,isColorSelectableArr,true);">
+                        <span class="glyphicon glyphicon-forward"></span>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-inverse btn-lg"
+                            style="margin-bottom: 5px"
+                            ng-click="move(selectedItems, selectableItems, selectedMoveItems,isColorSelectedArr,false);">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-inverse btn-lg"
+                            style="margin-bottom: 5px"
+                            ng-click="move(selectedItems, selectableItems, selectedMoveItems,isColorSelectedArr,true);">
+                        <span class="glyphicon glyphicon-backward"></span>
+                    </button>
+                </div>
+
+        </div>
+        <div class="col-xs-3 col-xs-height">
+            <div class="col-xs-top">{{title}}</div>
+            <ol  id="sortable-right" class="playlist" kendo-sortable k-options='sortableOptions'  k-on-change="change(kendoEvent,selectedItems,isColorSelectedArr)">
+                <li ng-init="isColorSelectedArr.push(false);"
+                    ng-class="{'orange':isColorSelectedArr[$index]}"
+                    ng-repeat="item in selectedItems"
+                    ng-click="toggleSelection(selectedItems,selectedMoveItems,isColorSelectedArr,item,$event,$index)"
+                    ng-dblclick="move(selectedItems, selectableItems, selectedMoveItems,isColorSelectedArr,false);">
+                    <div  ng-transclude inject></div>
+                </li>
+            </ol>
+            <button class="btn btn-warning" style="float: right" ng-click="okClick();">OK</button>
+        </div>
+    </div>
+</div>

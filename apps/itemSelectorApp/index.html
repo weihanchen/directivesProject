@@ -1,0 +1,59 @@
+
+<html ng-app="listAppModule">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+
+    <link href="../../includes/angularjs-toaster-master/toaster.css" rel="stylesheet" media="screen">
+
+    <!--<script type="text/javascript" src="../../includes/angular/angular-route.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../includes/angular/angular.ng-modules.js"></script>-->
+    <!--<script type="text/javascript" src="../../includes/angular/angular-resource.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../includes/angular/angular-animate.min.js"></script>-->
+
+
+    <link href="../../includes/kendoUI/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="../../includes/kendoUI/styles/kendo.default.min.css" rel="stylesheet">
+    <link href="../../includes/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+
+    <script src="../../includes/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../includes/angular/angular.min.js"></script>
+    <script src="../../includes/kendoUI/js/kendo.all.min.js"></script>
+    <script src="../../includes/angular/angular-kendo.js"></script>
+    <script type="text/javascript" src="../../includes/angular/angular-sanitize.min.js"></script>
+
+
+    <script src="itemSelectorApp.js"></script>
+    <script src="../../services/josnMethod.js"></script>
+    <script src="../../directives/l8k.UIDirective.js"></script>
+</head>
+<body ng-controller="listAppController">
+
+<!--<button class="btn btn-danger" ng-click="openItemSelector();">Open</button>-->
+<!--<br />-->
+{{showReturnCollection}}
+
+
+<!--<div  id="modalview-login" kendo-mobile-modal-view="modal" style="width: 40%;">-->
+
+
+    <item-selector datasource="selectableItems"
+                   selected-items="selectedItems"
+                   ok-eventhandler="okHandler"
+                   cancel-eventhandler="cancelHandler"
+                   title="title"
+                   search-filter="searchFilter"
+                   selectable-orderby="selectableorderby">
+        <item-template>
+            <div>
+                {{item.name}}
+                {{item.id}}
+            </div>
+        </item-template>
+
+    </item-selector>
+
+</div>
+</body>
+</html>
