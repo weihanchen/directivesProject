@@ -2,6 +2,7 @@
  * Created by WillChen on 2014/10/13.
  */
 (function(){
+
     angular.module('jsonMethodModule',[])
         .service('jsomMethodService',function($q,$http){
             var getJson = function(url){

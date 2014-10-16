@@ -12,9 +12,10 @@
 
     <script src="singleSelectListApp.js"></script>
     <script src="/directivesProject/directives/l8k.UIDirective.js"></script>
+    <script src="/directivesProject/services/jsonService.js"></script>
     <title></title>
 </head>
-<body>
-<single-select-list></single-select-list>
+<body ng-controller="singleSelectListApController">
+<single-select-list list-items="datasource"></single-select-list>
 </body>
 </html>

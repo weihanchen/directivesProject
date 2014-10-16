@@ -12,9 +12,18 @@
         <input type="text" class="form-control" placeholder="請輸入欲尋找資料">
     </div>
 
-    <a href="javascript: void(0)" class="list-group-item">Dapibus ac facilisis in <button  class="pull-right btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" /></button> </a>
-    <a href="javascript: void(0)" class="list-group-item">Morbi leo risus</a>
-    <a href="javascript: void(0)" class="list-group-item">Porta ac consectetur ac</a>
-    <a href="javascript: void(0)" class="list-group-item">Vestibulum at eros</a>
+    <a href="javascript: void(0)"
+       class="list-group-item"
+       ng-repeat="item in listItems|orderBy:'name'"
+       ng-init="showTrash.push(false)"
+       ng-mouseover="mouseHover($index)"
+       ng-mouseleave="mouseHover($index)"
+       >
+        {{item.name}}
+        <button  ng-show="showTrash[$index]" class="pull-right btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" /></button>
+    </a>
+    <!--<a href="javascript: void(0)" class="list-group-item">Morbi leo risus</a>-->
+    <!--<a href="javascript: void(0)" class="list-group-item">Porta ac consectetur ac</a>-->
+    <!--<a href="javascript: void(0)" class="list-group-item">Vestibulum at eros</a>-->
 
 </div>

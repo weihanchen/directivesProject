@@ -134,7 +134,17 @@
         .directive('singleSelectList',function(){
             return{
                 restrict: 'E',
-                templateUrl: '/directivesProject/directives/singleSelectList/singleSelectList.html'
+                scope: {
+                    listItems: '='
+                },
+                templateUrl: '/directivesProject/directives/singleSelectList/singleSelectList.html',
+                link: function(scope,element,attrs,parCtrl,transcludeFn){
+                    scope.showTrash = [];
+                    scope.mouseHover = function(index){
+
+                        scope.showTrash[index] = !scope.showTrash[index]
+                    }
+                }
             }
         })
         .directive('itemTemplate', function ($compile) {
