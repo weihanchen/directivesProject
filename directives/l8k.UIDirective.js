@@ -131,6 +131,12 @@
                 }
             }
         })
+        .directive('singleSelectList',function(){
+            return{
+                restrict: 'E',
+                templateUrl: '/directivesProject/directives/singleSelectList/singleSelectList.html'
+            }
+        })
         .directive('itemTemplate', function ($compile) {
             return {
                 restrict: "E",
