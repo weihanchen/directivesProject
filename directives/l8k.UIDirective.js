@@ -131,18 +131,40 @@
                 }
             }
         })
-        .directive('singleSelectList',function(){
+        .directive('singleSelectList', function () {
             return{
                 restrict: 'E',
                 scope: {
-                    listItems: '='
+                    datasource: '=',
+                    doAdd: '='
                 },
+                transclude: true,
                 templateUrl: '/directivesProject/directives/singleSelectList/singleSelectList.html',
-                link: function(scope,element,attrs,parCtrl,transcludeFn){
-                    scope.showTrash = [];
-                    scope.mouseHover = function(index){
-
-                        scope.showTrash[index] = !scope.showTrash[index]
+                link: function (scope, element, attrs, parCtrl, transcludeFn) {
+                    scope.isDisable = false;
+                    scope.$watch('datasource', function (newVal, oldVal) {
+                        if (newVal)  scope.listItems = angular.copy(newVal);
+                    })
+                    scope.mouseIn = function () {
+                        this.hoverEdit = true;
+                    }
+                    scope.mouseOut = function () {
+                        this.hoverEdit = false;
+                    }
+                    scope.doClick = function(){
+                        if (scope.isDisable) return;
+                        alert('doClick')
+                    }
+                    scope.addBtnClick = function () {
+                        scope.isDisable = true;
+                        var newItem = scope.doAdd();
+                        scope.isDisable = false;
+                        if (!newItem) return;
+                        scope.listItems.push(newItem)
+                    }
+                    scope.doRemove = function(){
+                        scope.isDisable = true;
+                        console.log(scope.isDisable)
                     }
                 }
             }

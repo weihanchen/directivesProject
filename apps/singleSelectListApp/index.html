@@ -1,4 +1,3 @@
-
 <html ng-app="singleSelectListAppModule">
 <head lang="en">
     <link href="../../includes/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -8,14 +7,26 @@
     <script src="../../includes/kendoUI/js/kendo.all.min.js"></script>
     <script src="../../includes/angular/angular-kendo.js"></script>
     <script src="../../includes/angular/angular-sanitize.min.js"></script>
+    <script src="../../includes/angular/angular-animate.min.js"></script>
 
 
     <script src="singleSelectListApp.js"></script>
     <script src="/directivesProject/directives/l8k.UIDirective.js"></script>
     <script src="/directivesProject/services/jsonService.js"></script>
+
     <title></title>
 </head>
 <body ng-controller="singleSelectListApController">
-<single-select-list list-items="datasource"></single-select-list>
+
+<div ng-show="isAdd"><input type="text" ng-model="nameText"><button ng-click="doConfirm()">Confirm</button></div>
+
+<single-select-list datasource="datasource"
+                    do-add="addItem">
+    <item-template>
+        <div>
+            {{item.name}}
+        </div>
+    </item-template>
+</single-select-list>
 </body>
 </html>
