@@ -23,10 +23,14 @@
     <button type="button" ng-click="doConfirm(nameText)" ng-model="confirmModel">{{confirmModel}}</button>
 </div>
 
-<div style="width: 25%">
+
+<div style="width: 25%;margin: auto">
     <single-select-list datasource="datasource"
                         do-add="doAdd"
-                        list-orderby="listOrderby">
+                        list-orderby="listOrderby"
+                        new-item="newItem"
+                        is-lock="isLock"
+                        >
         <item-template>
             <div>
                 {{item.name}}

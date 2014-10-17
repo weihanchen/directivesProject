@@ -138,17 +138,14 @@
                     datasource: '=',
                     searchFilter: '=',
                     listOrderby: '=',
-                    doAdd: '='
-//                    addItem: '='
+                    doAdd: '=',
+                    isDisable: '=isLock',
+//                    inputFunction: '='
+                    newItem: '='
                 },
                 transclude: true,
                 templateUrl: '/directivesProject/directives/singleSelectList/singleSelectList.html',
                 link: function (scope, element, attrs, parCtrl, transcludeFn) {
-                    scope.isDisable = false;
-                    scope.$watch('datasource', function (newVal, oldVal) {
-                        if (newVal)  scope.listItems = angular.copy(newVal);
-                    })
-
                     scope.mouseIn = function () {
                         this.hoverRevome = true;
                     }
@@ -159,23 +156,19 @@
                         return (!scope.searchFilter) ? scope.selectableSearchText : scope.searchFilter(scope.selectableSearchText)
                     };
                     //-------------------------------//
-                    scope.addBtnClick = function () {
-                        scope.isDisable = true;
-                        var newItem = scope.doAdd();
-                        scope.isDisable = false;
-                        if (!newItem) return;
-                        scope.listItems.push(newItem)
-                    }
-                    //-----start and end version----//
 //                    scope.addBtnClick = function () {
 //                        scope.isDisable = true;
-//                        scope.doAdd();
+//                        var newItem = scope.doAdd();
+//                        scope.isDisable = false;
+//                        if (!newItem) return;
+//                        scope.listItems.push(newItem)
 //                    }
-//                    scope.$watch('addItem', function(newVal){
-//                        if (!newVal) return
-//                        scope.listItems.push(newVal)
-//                        scope.isDisable = false
-//                    }, true);
+                    //-----start and end version----//
+                    scope.addBtnClick = function () {
+//                        scope.isDisable = true;
+                        scope.doAdd();
+
+                    }
                     //-----------------------------//
 
                 }

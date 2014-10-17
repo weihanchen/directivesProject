@@ -6,7 +6,8 @@
         .controller('singleSelectListApController',function($scope,jsomMethodService){
             $scope.isAdd = false;
             $scope.listOrderby = 'name';
-            $scope.addItem;
+            $scope.newItem;
+            $scope.isLock;
             $scope.init = function(){
                 jsomMethodService.getJson('../../json/selectable.json').then(
                     function (data) {//success
@@ -16,23 +17,27 @@
                     }
                 );
             };
+
             $scope.init();
-//            $scope.doConfirm = function(newName){
-//                $scope.addItem = {
-//                    name: newName,
+            $scope.doConfirm = function(newName){
+                $scope.datasource.push({
+                    name: newName,
+                    id: '0000000000'
+                })
+                $scope.isLock = false;
+                $scope.isConfirmShow = false;
+            }
+            $scope.doAdd = function(){
+                $scope.isConfirmShow = true;
+                $scope.confirmModel = 'Add';
+                $scope.isLock = true;
+//                var addName = prompt("Please enter your name", "Harry Potter");
+//                if (!addName) return
+//                var returnItem = {
+//                    name: addName,
 //                    id: '0000000000'
 //                }
-//            }
-            $scope.doAdd = function(){
-//                $scope.isConfirmShow = true;
-//                $scope.confirmModel = 'Add';
-                var addName = prompt("Please enter your name", "Harry Potter");
-                if (!addName) return
-                var returnItem = {
-                    name: addName,
-                    id: '0000000000'
-                }
-                return  returnItem;
+//                return  returnItem;
             }
         })
 })();

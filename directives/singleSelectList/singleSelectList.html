@@ -13,14 +13,14 @@
     </div>
 
     <a href="javascript:void(0)" class="list-group-item"
-       ng-repeat="item in listItems|filter:getCurrentFilter()|orderBy:listOrderby"
-       ng-mouseover="mouseIn()"
+       ng-class="{'disabled':isDisable}"
+       ng-repeat="item in datasource|filter:getCurrentFilter()|orderBy:listOrderby"
+       ng-mouseover="isDisable || mouseIn()"
        ng-mouseleave="mouseOut()">
 
         <button ng-show="hoverRevome" class="pull-right btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"/>
         </button>
         <div ng-transclude inject></div>
     </a>
-
 
 </fieldset>
