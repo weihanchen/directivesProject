@@ -18,15 +18,21 @@
 </head>
 <body ng-controller="singleSelectListApController">
 
-<div ng-show="isAdd"><input type="text" ng-model="nameText"><button ng-click="doConfirm()">Confirm</button></div>
+<div ng-show="isConfirmShow">
+    <input type="text" ng-model="nameText" placeholder="Please Enter Name....">
+    <button type="button" ng-click="doConfirm(nameText)" ng-model="confirmModel">{{confirmModel}}</button>
+</div>
 
-<single-select-list datasource="datasource"
-                    do-add="addItem">
-    <item-template>
-        <div>
-            {{item.name}}
-        </div>
-    </item-template>
-</single-select-list>
+<div style="width: 25%">
+    <single-select-list datasource="datasource"
+                        do-add="doAdd"
+                        list-orderby="listOrderby">
+        <item-template>
+            <div>
+                {{item.name}}
+            </div>
+        </item-template>
+    </single-select-list>
+</div>
 </body>
 </html>

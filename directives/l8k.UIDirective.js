@@ -136,7 +136,10 @@
                 restrict: 'E',
                 scope: {
                     datasource: '=',
+                    searchFilter: '=',
+                    listOrderby: '=',
                     doAdd: '='
+//                    addItem: '='
                 },
                 transclude: true,
                 templateUrl: '/directivesProject/directives/singleSelectList/singleSelectList.html',
@@ -145,16 +148,17 @@
                     scope.$watch('datasource', function (newVal, oldVal) {
                         if (newVal)  scope.listItems = angular.copy(newVal);
                     })
+
                     scope.mouseIn = function () {
-                        this.hoverEdit = true;
+                        this.hoverRevome = true;
                     }
                     scope.mouseOut = function () {
-                        this.hoverEdit = false;
+                        this.hoverRevome = false;
                     }
-                    scope.doClick = function(){
-                        if (scope.isDisable) return;
-                        alert('doClick')
-                    }
+                    scope.getCurrentFilter = function () {
+                        return (!scope.searchFilter) ? scope.selectableSearchText : scope.searchFilter(scope.selectableSearchText)
+                    };
+                    //-------------------------------//
                     scope.addBtnClick = function () {
                         scope.isDisable = true;
                         var newItem = scope.doAdd();
@@ -162,10 +166,18 @@
                         if (!newItem) return;
                         scope.listItems.push(newItem)
                     }
-                    scope.doRemove = function(){
-                        scope.isDisable = true;
-                        console.log(scope.isDisable)
-                    }
+                    //-----start and end version----//
+//                    scope.addBtnClick = function () {
+//                        scope.isDisable = true;
+//                        scope.doAdd();
+//                    }
+//                    scope.$watch('addItem', function(newVal){
+//                        if (!newVal) return
+//                        scope.listItems.push(newVal)
+//                        scope.isDisable = false
+//                    }, true);
+                    //-----------------------------//
+
                 }
             }
         })
@@ -188,7 +200,7 @@
         .directive('inject', function () {
             return {
                 restrict: 'A',
-                link: function (scope, element, attrs, ctrl, transcludeFn) {//目的使transclude的內容使用到isolate-scope,e.g{{item}}
+                link: function (scope, element, attrs, ctrl, transcludeFn) {
                     if (!transcludeFn) return;
                     transcludeFn(scope, function (clone) {
                         element.empty();

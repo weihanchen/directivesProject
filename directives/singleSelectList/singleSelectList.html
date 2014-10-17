@@ -9,16 +9,15 @@
     </h3>
     <div class="input-group">
         <span class="input-group-addon">尋找</span>
-        <input type="text" class="form-control" placeholder="請輸入欲尋找資料">
+        <input type="text" class="form-control" placeholder="請輸入欲尋找資料" ng-model="selectableSearchText">
     </div>
 
     <a href="javascript:void(0)" class="list-group-item"
-       ng-repeat="item in listItems"
+       ng-repeat="item in listItems|filter:getCurrentFilter()|orderBy:listOrderby"
        ng-mouseover="mouseIn()"
-       ng-mouseleave="mouseOut()"
-       ng-click="doClick()">
+       ng-mouseleave="mouseOut()">
 
-        <button ng-show="hoverEdit" ng-click="doRemove()" class="pull-right btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"/>
+        <button ng-show="hoverRevome" class="pull-right btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"/>
         </button>
         <div ng-transclude inject></div>
     </a>
