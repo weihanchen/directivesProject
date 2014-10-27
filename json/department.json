@@ -1,0 +1,112 @@
+[
+    {
+        "name": "a部門",
+        "members": [
+            {
+                "name": "a1",
+                "information": {
+                    "id": "001",
+                    "city": "Taipei",
+                    "phone": "0977123123"
+                }
+            },
+            {
+                "name": "a2",
+                "information": {
+                    "id": "002",
+                    "city": "Taipei",
+                    "phone": "0913123123"
+                }
+
+            }
+        ]
+    },
+    {
+        "name": "b部門",
+        "members": [
+            {
+                "name": "b1",
+                "information": {
+                    "id": "003",
+                    "city": "Taichung",
+                    "phone": "0977123123"
+                }
+            },
+            {
+                "name": "b2",
+                "information": {
+                    "id": "004",
+                    "city": "Taichung",
+                    "phone": "0910111111"
+                }
+
+            }
+        ]
+    },
+    {
+        "name": "c部門",
+        "members": [
+            {
+                "name": "c1",
+                "information": {
+                    "id": "005",
+                    "city": "Hsinchu",
+                    "phone": "0918100100"
+                }
+            },
+            {
+                "name": "c2",
+                "information": {
+                    "id": "006",
+                    "city": "Hsinchu",
+                    "phone": "0933010010"
+                }
+            },
+            {
+                "name": "c3",
+                "information": {
+                    "id": "007",
+                    "city": "Hsinchu",
+                    "phone": "0911111111"
+                }
+            }
+        ]
+    },
+    {
+        "name": "d部門",
+        "members": [
+            {
+                "name": "d1",
+                "information": {
+                    "id": "008",
+                    "city": "Miaoli",
+                    "phone": "0933121211"
+                }
+            },
+            {
+                "name": "d2",
+                "information": {
+                    "id": "009",
+                    "city": "Miaoli",
+                    "phone": "0981871871"
+                }
+            },
+            {
+                "name": "d3",
+                "information": {
+                    "id": "010",
+                    "city": "Miaoli",
+                    "phone": "0973723723"
+                }
+            },
+            {
+                "name": "d4",
+                "information": {
+                    "id": "011",
+                    "city": "Miaoli",
+                    "phone": "0935315345"
+                }
+            }
+        ]
+    }
+]

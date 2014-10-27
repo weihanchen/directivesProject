@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{modalTitle}}</h3>
+</div>
+<fieldset class="modal-body" align="center" ng-disabled="isRemove">
+    <form name="registerForm" class="form-inline" novalidate>
+    <div class="form-group" ng-class="getFormGroupClass(registerForm.inputName)">
+        <label for="inputName" class="control-label">姓名：</label>
+        <input type="text" class="form-control" id="inputName" name="inputName" placeholder="請輸入姓名..." ng-model="inputName" required >
+        <span ng-show="registerForm.inputName.$dirty" ng-class="getGlyphIconClass(registerForm.inputName)"></span>
+        <br />
+        <label class="control-label" ng-show="isRequired(registerForm.inputName)">*Required</label>
+    </div>
+        <p>
+    <div class="form-group" ng-class="getFormGroupClass(registerForm.inputId)">
+        <label for="inputId" class="control-label">編號：</label>
+        <input type="text" class="form-control" id="inputId" name="inputId" placeholder="請輸入員工編號..." ng-model="inputId" required>
+        <span ng-show="registerForm.inputId.$dirty" ng-class="getGlyphIconClass(registerForm.inputId)"></span>
+        <br />
+        <label class="control-label" ng-show="isRequired(registerForm.inputId)">*Required</label>
+    </div>
+    </form>
+</fieldset>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-disabled="registerForm.$invalid " ng-click="okClick()">{{okText}}</button>
+    <button class="btn btn-warning" ng-click="cancelClick()">{{cancelText}}</button>
+</div>

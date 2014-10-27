@@ -1,0 +1,43 @@
+<html ng-app="singleSelectListAppModalModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="../../../includes/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <script src="../../../includes/jquery/jquery-2.1.1.min.js"></script>
+    <script src="../../../includes/angular/angular.min.js"></script>
+    <script src="../../../includes/kendoUI/js/kendo.all.min.js"></script>
+    <script src="../../../includes/angular/angular-kendo.js"></script>
+    <script src="../../../includes/angular/angular-sanitize.min.js"></script>
+    <script src="../../../includes/angular/angular-animate.min.js"></script>
+    <script src="../../../includes/AngularUI/ui-bootstrap-tpls-0.11.2.min.js"></script>
+
+
+    <script src="singleSelectListAppModal.js"></script>
+    <script src="/directivesProject/directives/l8k.UIDirective.js"></script>
+    <script src="/directivesProject/services/jsonService.js"></script>
+
+    <title></title>
+</head>
+<body ng-controller="singleSelectListAppModalController">
+
+<div style="width: 25%;margin: auto">
+    <single-select-list datasource="singleSelectListModalDataSource"
+                        title="{{::'員工基本資料歸檔'}}"
+                        list-orderby="listOrderby"
+                        do-add="startAdd"
+                        do-click="startEdit"
+                        do-remove="startRemove"
+                        is-lock="isLock"
+                        do-load-more="doLoadMore"
+                        do-extend="doExtend"
+                        >
+        <item-template>
+            <div>
+                {{::item.name}}
+                {{::item.id}}
+            </div>
+        </item-template>
+    </single-select-list>
+</div>
+</body>
+</html>

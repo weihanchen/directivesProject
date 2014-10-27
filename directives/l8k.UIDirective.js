@@ -2,6 +2,9 @@
  * Created by Administrator on 2014/9/6.
  */
 (function () {
+    var scripts = document.getElementsByTagName('script')
+    var scriptPath= scripts[scripts.length-1].src
+    var theScriptDirectory = scriptPath.substring(0,scriptPath.lastIndexOf('/'))
     function IsSelfAttrsEqObjX(self, ObjX) {//比較共同欄位
         var isequal = false;
         for (var thisKey in self) {
@@ -41,9 +44,10 @@
                     searchFilter: '=',
                     selectableOrderby: '='
                 },
-                templateUrl: "/directivesProject/directives/itemSelector/itemSelector.html",
+                templateUrl: theScriptDirectory + "/itemSelector/itemSelector.html",
                 transclude: true,
                 link: function (scope, element, attrs, parentctrl, transcludeFn) {
+                    scope.theScriptDirectory = theScriptDirectory
                     scope.sortableOptions = {
                         cursor: "move",
                         hint: function (element) {
@@ -136,16 +140,21 @@
                 restrict: 'E',
                 scope: {
                     datasource: '=',
+                    title: '@',
                     searchFilter: '=',
                     listOrderby: '=',
                     doAdd: '=',
-                    isDisable: '=isLock',
-//                    inputFunction: '='
-                    newItem: '='
+                    doClick: '=',
+                    doRemove: '=',
+                    doRefresh: '=',
+                    doLoadMore: '=',
+                    doExtend: '=',
+                    isLock: '='
                 },
                 transclude: true,
-                templateUrl: '/directivesProject/directives/singleSelectList/singleSelectList.html',
+                templateUrl: theScriptDirectory + '/singleSelectList/singleSelectList.html',
                 link: function (scope, element, attrs, parCtrl, transcludeFn) {
+                    scope.theScriptDirectory = theScriptDirectory
                     scope.mouseIn = function () {
                         this.hoverRevome = true;
                     }
@@ -155,22 +164,23 @@
                     scope.getCurrentFilter = function () {
                         return (!scope.searchFilter) ? scope.selectableSearchText : scope.searchFilter(scope.selectableSearchText)
                     };
-                    //-------------------------------//
-//                    scope.addBtnClick = function () {
-//                        scope.isDisable = true;
-//                        var newItem = scope.doAdd();
-//                        scope.isDisable = false;
-//                        if (!newItem) return;
-//                        scope.listItems.push(newItem)
-//                    }
-                    //-----start and end version----//
                     scope.addBtnClick = function () {
-//                        scope.isDisable = true;
-                        scope.doAdd();
-
+                        if (scope.doAdd) scope.doAdd();
                     }
-                    //-----------------------------//
-
+                    scope.btnClick = function(item){
+                        if (scope.doClick) scope.doClick(item)
+                    }
+                    scope.removeBtnClick = function(item,event){
+                        this.hoverRevome = false;
+                        if (scope.doRemove) scope.doRemove(item)
+                        event.stopPropagation()
+                    }
+                    scope.refreshBtnClick = function(){
+                        if (scope.doRefresh) scope.doRefresh()
+                    }
+                    scope.loadMore = function(){
+                       if (scope.doLoadMore) scope.doLoadMore()
+                    }
                 }
             }
         })
@@ -200,6 +210,16 @@
                         element.append(clone);
                     });
                 }
+            };
+        })
+        .directive('whenScrolled', function() {
+            return function(scope, elm, attr) {
+                var scrollBar = elm[0];
+                elm.bind('scroll', function() {
+                    if (scrollBar.scrollTop + scrollBar.offsetHeight >= scrollBar.scrollHeight) {
+                        scope.$apply(attr.whenScrolled);
+                    }
+                });
             };
         });
 })();

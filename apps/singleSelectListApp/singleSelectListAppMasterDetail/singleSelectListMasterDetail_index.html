@@ -1,0 +1,63 @@
+<html ng-app="singleSelectListMasterDetailModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="../../../includes/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <script src="../../../includes/jquery/jquery-2.1.1.min.js"></script>
+    <script data-require="angular.js@1.3.x" src="https://code.angularjs.org/1.3.0/angular.js" data-semver="1.3.0"></script>
+    <script src="../../../includes/kendoUI/js/kendo.all.min.js"></script>
+    <script src="../../../includes/angular/angular-kendo.js"></script>
+    <script src="../../../includes/angular/angular-sanitize.min.js"></script>
+    <script src="../../../includes/angular/angular-animate.min.js"></script>
+    <script src="../../../includes/AngularUI/ui-bootstrap-tpls-0.11.2.min.js"></script>
+
+
+    <script src="singleSelectListMasterDetail.js"></script>
+    <script src="/directivesProject/directives/l8k.UIDirective.js"></script>
+    <script src="/directivesProject/services/jsonService.js"></script>
+    <script src="/directivesProject/services/jsonParseService.js"></script>
+
+    <title></title>
+</head>
+<body ng-controller="singleSelectListMasterDetailController" class="container-fluid">
+<div class="row">
+    <div class="col-md-3">
+        <single-select-list datasource="datasource.department"
+                            do-click="departmentDoClick"
+                            title="{{'部門資料表'}}">
+            <item-template>
+                <div>
+                    {{item.name}}
+                    {{item.id}}
+                </div>
+            </item-template>
+        </single-select-list>
+    </div>
+    <div class="col-md-3"  ng-if="departmentSelectedItem">
+        <single-select-list datasource="datasource.members[departmentSelectedItem]"
+                            title="{{departmentSelectedItem + '的成員資料'}}"
+                            do-click="memberClick">
+            <item-template>
+                <div>
+                    {{item.name}}
+                </div>
+            </item-template>
+        </single-select-list>
+
+    </div>
+    <div class="col-md-6"  ng-if="memberSelectedItem">
+        <single-select-list datasource="datasource.information[memberSelectedItem]"
+                            title="{{memberSelectedItem + '的個人資料'}}">
+            <item-template>
+                <div>
+                    <span class="glyphicon glyphicon-user"/>{{item.id}}<br />
+                    <span class="glyphicon glyphicon-home"/>{{item.city}}<br />
+                     <span class="glyphicon glyphicon-phone"/>{{item.phone}}
+                </div>
+            </item-template>
+        </single-select-list>
+
+    </div>
+</div>
+</body>
+</html>
