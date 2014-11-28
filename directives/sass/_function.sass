@@ -1,0 +1,15 @@
+@mixin itemselector-container-padding-setting($top,$right,$bottom,$left)
+  padding: $top $right $bottom $left
+  @content
+@mixin playlist-setting($height,$max-height,$background)
+  height: $height
+  max-height: $max-height
+  background: $background
+  @content
+
+@mixin list-item-setting($color,$background,$font-size,$padding)
+  color: $color
+  background: $background
+  font-size: $font-size
+  padding: $padding
+  @content

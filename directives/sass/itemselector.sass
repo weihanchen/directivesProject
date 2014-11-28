@@ -1,0 +1,49 @@
+@import "variable"
+@import "function"
+.unselectable
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  outline-style: none
+.container-xs-height
+  +itemselector-container-padding-setting(0,0,0,0)
+  display: table
+.row-xs-height
+  display: table-row
+.col-xs-height
+  +itemselector-container-padding-setting(10px,10px,10px,10px)
+  display: table-cell
+  float: none
+  vertical-align: middle
+  text-align: center
+.playlist
+  +playlist-setting($playlist-height,$playlist-max-height,$playlist-background)
+  border-radius: 5px
+  overflow: auto
+  text-align: left
+  padding: 0
+  margin-top: 1em
+  li
+    +list-item-setting($playlist-li-color,null,$playlist-li-font-size,$playlist-li-padding)
+    list-style-type: none
+    cursor: pointer
+li
+  &.hint
+    +list-item-setting($li-hint-color,$li-hint-background,$li-hint-font-size,$li-hint-padding)
+    display: block
+    &:after
+      content: ""
+      display: block
+      border-top: 6px solid transparent
+      border-bottom: 6px solid transparent
+      border-left: 6px solid #52aef7
+      position: absolute
+      left: 100%
+      top: 40%
+  &.placeholder
+    +list-item-setting($li-placeholder-color,$li-placeholder-background,null,null)
+  &.active
+    +list-item-setting($li-active-color,$li-active-background,null,null)

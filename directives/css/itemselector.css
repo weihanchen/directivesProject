@@ -1,0 +1,62 @@
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline-style: none; }
+
+.container-xs-height {
+  padding: 0 0 0 0;
+  display: table; }
+
+.row-xs-height {
+  display: table-row; }
+
+.col-xs-height {
+  padding: 10px 10px 10px 10px;
+  display: table-cell;
+  float: none;
+  vertical-align: middle;
+  text-align: center; }
+
+.playlist {
+  height: 300px;
+  max-height: 200px;
+  background: #ffffff;
+  border-radius: 5px;
+  overflow: auto;
+  text-align: left;
+  padding: 0;
+  margin-top: 1em; }
+  .playlist li {
+    color: #000000;
+    font-size: 1.2em;
+    padding: 10px;
+    list-style-type: none;
+    cursor: pointer; }
+
+li.hint {
+  color: #fff;
+  background: #52aef7;
+  font-size: 1.2em;
+  padding: 10px;
+  display: block; }
+  li.hint:after {
+    content: "";
+    display: block;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid #52aef7;
+    position: absolute;
+    left: 100%;
+    top: 40%; }
+li.placeholder {
+  color: #52aef7;
+  background: #dceffd; }
+li.active {
+  color: #ffffff;
+  background: #f46718; }
+
+/*# sourceMappingURL=itemselector.css.map */
