@@ -2,9 +2,10 @@
  * Created by Administrator on 2014/9/6.
  */
 (function () {
-    var scripts = document.getElementsByTagName('script')
-    var scriptPath= scripts[scripts.length-1].src
-    var theScriptDirectory = scriptPath.substring(0,scriptPath.lastIndexOf('/'))
+    var scripts = document.getElementsByTagName('script');
+    var scriptPath = scripts[scripts.length - 1].src;
+    var theScriptDirectory = scriptPath.substring(0, scriptPath.lastIndexOf('/'));
+
     function IsSelfAttrsEqObjX(self, ObjX) {//比較共同欄位
         var isequal = false;
         for (var thisKey in self) {
@@ -16,7 +17,7 @@
             isequal = true;
         }
         return isequal;
-    };
+    }
 
     function setArrayValues(array, start, end, value) {
         for (var i = start; i <= end; i++) {
@@ -31,8 +32,37 @@
     }
 
     angular.module('l8k.UI.DirectiveModule', ['kendo.directives', 'ngSanitize'])
+        .filter('orderBySource', function () {
+            var sortByString = function (a, b, field) {
+                return (a[field] > b[field] ? 1 : a[field] < b[field] ? -1 : 0);
+            };
+            var sortByArray = function (a, b, fields) {
+                var i = 0, result = 0;
+                while (result === 0 && i < fields.length) {
+                    result = sortByString(a, b, fields[i]);
+                    i++;
+                }
+                return result;
+            };
+            return function (datasource, args, reverse) {
+                if (!datasource) return;
+                if (angular.isString(args)) {
+                    datasource.sort(function (a, b) {
+                        return sortByString(a, b, args);
+                    });
+                } else if (angular.isArray(args)) {
+                    datasource.sort(function (a, b) {
+                        return sortByArray(a, b, args);
+                    });
+                } else if (angular.isFunction(args)) {
+                    datasource.sort(args);
+                }
+                if (reverse) datasource.reverse();
+                return datasource;
+            };
+        })
         .directive('itemSelector', function () {
-            return{
+            return {
                 restrict: 'E',
                 scope: {
                     title: '=',
@@ -47,7 +77,7 @@
                 templateUrl: theScriptDirectory + "/itemSelector/itemSelector.html",
                 transclude: true,
                 link: function (scope, element, attrs, parentctrl, transcludeFn) {
-                    scope.theScriptDirectory = theScriptDirectory
+                    scope.theScriptDirectory = theScriptDirectory;
                     scope.sortableOptions = {
                         cursor: "move",
                         hint: function (element) {
@@ -71,7 +101,7 @@
                                     canSelectable = false;
                                     return;
                                 }
-                            })
+                            });
                             if (canSelectable) scope.selectableItems.push(item);
                         });
                     });
@@ -95,7 +125,6 @@
                         scope.preSelectedIndex = e.newIndex;
                     };
                     scope.toggleSelection = function toggleSelection(totalItems, tmpSelectedItems, tmpColorSelectedArr, item, event, selectionIndex) {//待整理
-                        var tmpIndex = tmpSelectedItems.indexOf(item);
                         if (event.shiftKey) {//清除已選擇的區段後再從起點選到終點
                             setArrayValues(tmpColorSelectedArr, 0, tmpColorSelectedArr.length - 1, false);
                             tmpSelectedItems.splice(0, tmpSelectedItems.length);
@@ -109,19 +138,22 @@
                             setArrayValues(tmpColorSelectedArr, start, end, true);
                         }
                         else if (event.ctrlKey) {//若點選的選項在tmpSelectedItems已存在則移除，其餘則push
+                            var tmpIndex = tmpSelectedItems.indexOf(item);
                             if (tmpIndex != -1) tmpSelectedItems.splice(tmpIndex, 1);
                             else tmpSelectedItems.push(item);
                             tmpColorSelectedArr[selectionIndex] = !tmpColorSelectedArr[selectionIndex];
+                            scope.preSelectedIndex = selectionIndex;
                         } else {//單選，清除已選的選項，存放目前所點選的選項
                             tmpSelectedItems.splice(0, tmpSelectedItems.length);
                             setArrayValues(tmpColorSelectedArr, 0, tmpColorSelectedArr.length - 1, false);
                             tmpSelectedItems.push(item);
                             tmpColorSelectedArr[selectionIndex] = !tmpColorSelectedArr[selectionIndex];
+                            scope.preSelectedIndex = selectionIndex;
                         }
-                        scope.preSelectedIndex = selectionIndex;
+
                     };
                     scope.getCurrentFilter = function () {
-                        return (!scope.searchFilter) ? scope.selectableSearchText : scope.searchFilter(scope.selectableSearchText)
+                        return (!scope.searchFilter) ? scope.selectableSearchText : scope.searchFilter(scope.selectableSearchText);
                     };
                     scope.getCurrentIsEqual = function (datasourceItem, selectedItem) {
                         return (scope.isEqual) ? scope.isEqual(datasourceItem, selectedItem) : IsSelfAttrsEqObjX(datasourceItem, selectedItem);
@@ -133,10 +165,10 @@
                         if (scope.cancelEventhandler) scope.cancelEventhandler();
                     };
                 }
-            }
+            };
         })
         .directive('singleSelectList', function () {
-            return{
+            return {
                 restrict: 'E',
                 scope: {
                     datasource: '=',
@@ -154,35 +186,35 @@
                 transclude: true,
                 templateUrl: theScriptDirectory + '/singleSelectList/singleSelectList.html',
                 link: function (scope, element, attrs, parCtrl, transcludeFn) {
-                    scope.theScriptDirectory = theScriptDirectory
+                    scope.theScriptDirectory = theScriptDirectory;
                     scope.mouseIn = function () {
                         this.hoverRevome = true;
-                    }
+                    };
                     scope.mouseOut = function () {
                         this.hoverRevome = false;
-                    }
+                    };
                     scope.getCurrentFilter = function () {
-                        return (!scope.searchFilter) ? scope.selectableSearchText : scope.searchFilter(scope.selectableSearchText)
+                        return (!scope.searchFilter) ? scope.selectableSearchText : scope.searchFilter(scope.selectableSearchText);
                     };
                     scope.addBtnClick = function () {
                         if (scope.doAdd) scope.doAdd();
-                    }
-                    scope.btnClick = function(item){
-                        if (scope.doClick) scope.doClick(item)
-                    }
-                    scope.removeBtnClick = function(item,event){
+                    };
+                    scope.btnClick = function (item) {
+                        if (scope.doClick) scope.doClick(item);
+                    };
+                    scope.removeBtnClick = function (item, event) {
                         this.hoverRevome = false;
-                        if (scope.doRemove) scope.doRemove(item)
-                        event.stopPropagation()
-                    }
-                    scope.refreshBtnClick = function(){
-                        if (scope.doRefresh) scope.doRefresh()
-                    }
-                    scope.loadMore = function(){
-                       if (scope.doLoadMore) scope.doLoadMore()
-                    }
+                        if (scope.doRemove) scope.doRemove(item);
+                        event.stopPropagation();
+                    };
+                    scope.refreshBtnClick = function () {
+                        if (scope.doRefresh) scope.doRefresh();
+                    };
+                    scope.loadMore = function () {
+                        if (scope.doLoadMore) scope.doLoadMore();
+                    };
                 }
-            }
+            };
         })
         .directive('itemTemplate', function ($compile) {
             return {
@@ -212,10 +244,10 @@
                 }
             };
         })
-        .directive('whenScrolled', function() {
-            return function(scope, elm, attr) {
+        .directive('whenScrolled', function () {
+            return function (scope, elm, attr) {
                 var scrollBar = elm[0];
-                elm.bind('scroll', function() {
+                elm.bind('scroll', function () {
                     if (scrollBar.scrollTop + scrollBar.offsetHeight >= scrollBar.scrollHeight) {
                         scope.$apply(attr.whenScrolled);
                     }

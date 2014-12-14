@@ -1,5 +1,5 @@
 <link ng-href="{{theScriptDirectory}}/css/itemselector.css" rel="stylesheet" />
-
+        {{selectableItems}}
 <div class="container-fluid container-xs-height unselectable">
     <div class="row row-xs-height">
         <div class="col-xs-3 col-xs-height bg-primary">
@@ -8,7 +8,7 @@
 
             <ol  id="sortable-left"  class="playlist">
                 <li ng-init="isColorSelectableArr.push(false);"
-                    ng-repeat="item in selectableItems|filter:getCurrentFilter()|orderBy:selectableOrderby"
+                    ng-repeat="item in selectableItems|orderBySource:selectableOrderby|filter:getCurrentFilter() track by $index"
                     ng-class="{'active':isColorSelectableArr[$index]}"
                     ng-click="toggleSelection(selectableItems,selectableMoveItems,isColorSelectableArr,item,$event,$index)"
                     ng-dblclick="move(selectableItems, selectedItems, selectableMoveItems,isColorSelectableArr,false);"

@@ -10,7 +10,7 @@
             $scope.title = 'This is title.';
             $scope.searchColumns = ['name'];
             $scope.showReturnCollection = [];
-            $scope.selectableorderby = ['id'];//selectableorderby can use string for sigle column and array for multiple columns and function(item) to implement return boolean
+            $scope.selectableorderby = ['name','id'];//selectableorderby can use string for sigle column and array for multiple columns and function(item) to implement return boolean
             $scope.init = function(){
                 jsomMethodService.getJson('../../json/selectable.json').then(
                     function (data) {//success
